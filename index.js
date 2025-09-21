@@ -28,13 +28,14 @@ app.post('/send-email', (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to,
+    to: process.env.EMAIL_USER,
     subject,
     text,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
+      console.error('Error sending email:', error);
       return res.status(500).send(error.toString());
     }
     res.status(200).send('Email sent: ' + info.response);
