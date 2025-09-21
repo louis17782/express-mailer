@@ -11,7 +11,7 @@ const port = 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: 'https://luissanteliz.dev/' }));
+app.use(cors({ origin: 'https://luissanteliz.dev' }));
 
 // Email configuration
 const transporter = nodemailer.createTransport({
