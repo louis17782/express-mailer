@@ -1,7 +1,7 @@
 import express from 'express';
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { Resend } from 'resend';
 
 dotenv.config();
 
@@ -13,33 +13,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: 'https://luissanteliz.dev' }));
 
-// Email configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.API_KEY_RESEND);
 
 // Routes
-app.post('/send-email', (req, res) => {
-  const { to, subject, text } = req.body;
+app.post('/send-email', async (req, res) => {
+  const { subject, text } = req.body;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject,
-    text,
-  };
+  try {
+    // Using Resend to send email
+    const response = await resend.emails.send({
+      from: 'Louis Santeliz <noreply@luissanteliz.dev>',
+      to: 'luissanteliz22@gmail.com',
+      subject: subject,
+      text: text,
+    });
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-      return res.status(500).send(error.toString());
-    }
-    res.status(200).send('Email sent: ' + info.response);
-  });
+    console.log('Email sent successfully:', response);
+    res.status(200).json({ message: 'Email sent successfully', response });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Error sending email', error });
+  }
 });
 
 // Start server
