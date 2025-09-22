@@ -22,7 +22,7 @@ app.post('/send-email', async (req, res) => {
   try {
     // Using Resend to send email
     const response = await resend.emails.send({
-      from: 'Luis Santeliz <contacto@luissanteliz.dev>',
+      from: 'Luis Santeliz <noreply@luissanteliz.dev>',
       to: 'luissanteliz22@gmail.com',
       subject: subject,
       text: text,
