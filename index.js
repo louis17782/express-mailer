@@ -24,6 +24,7 @@ app.post('/send-email', async (req, res) => {
     const response = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'luissanteliz22@gmail.com',
+      reply_to: email,
       subject: subject,
       text: text,
     });
