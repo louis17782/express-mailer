@@ -17,7 +17,7 @@ const resend = new Resend(process.env.API_KEY_RESEND);
 
 // Routes
 app.post('/send-email', async (req, res) => {
-  const { subject, text} = req.body;
+  const { subject, name, email, message} = req.body;
 
   try {
     // Using Resend to send email
