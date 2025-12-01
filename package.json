@@ -1,7 +1,7 @@
 {
   "name": "express-mailer",
   "version": "1.0.0",
-  "description": "An Express.js API for handling contact form submissions and sending emails using Nodemailer.",
+  "description": "An Express.js API for handling contact form submissions and sending emails using Render.",
   "homepage": "https://github.com/louis17782/express-mailer#readme",
   "bugs": {
     "url": "https://github.com/louis17782/express-mailer/issues"
